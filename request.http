@@ -1,0 +1,5 @@
+### GET request to example server
+GET http://localhost:8080/api/v1/check
+
+### GET request to example server
+GET https://demo.ahmadzulfadli.online/api/v1/check
