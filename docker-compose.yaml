@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  device-agent:
+    build:
+      context: .
+      dockerfile: Dockerfile.agent
+    container_name: demo3-agent
+    volumes:
+      - ./src/main/resources/META-INF:/app/src/main/resources/META-INF
+    environment:
+      - PORT=8080
+    ports:
+      - "8080:8080"

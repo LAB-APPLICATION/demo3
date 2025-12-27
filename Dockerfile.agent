@@ -1,0 +1,26 @@
+# =====================
+# Agent Stage
+# =====================
+FROM --platform=linux/amd64 ghcr.io/graalvm/graalvm-community:21.0.2-ol9-20240116 AS agent
+
+RUN microdnf install -y unzip zip gzip curl
+
+ENV TZ=Asia/Jakarta
+ENV MAVEN_OPTS="-Xmx4g"
+
+WORKDIR /app
+
+COPY .mvn .mvn
+COPY mvnw .
+RUN chmod +x mvnw
+
+COPY pom.xml .
+RUN ./mvnw -B -DskipTests dependency:go-offline
+
+COPY src ./src
+
+RUN ./mvnw clean package -DskipTests \
+ && cp target/*jar target/app.jar
+
+ENTRYPOINT ["java", "-agentlib:native-image-agent=config-output-dir=src/main/resources/META-INF/native-image", "-jar", "target/app.jar"]
+
