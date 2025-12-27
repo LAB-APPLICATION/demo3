@@ -140,7 +140,7 @@
                             <agent>
                                 <enabled>true</enabled>
                             </agent>
-                            <mainClass>com.app.demo.DemoApplication</mainClass>
+                            <mainClass>com.example.demo.DemoApplication</mainClass>
                             <buildArgs>
                                 <arg>--no-fallback</arg>
                                 <arg>-H:+ReportExceptionStackTraces</arg>
