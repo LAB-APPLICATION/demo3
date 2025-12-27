@@ -38,8 +38,8 @@ RUN addgroup -g 1000 spring && adduser -u 1000 -G spring -s /bin/sh -D spring
 ENV TZ=Asia/Jakarta
 
 WORKDIR /app
-COPY --from=build-aot --chown=spring:spring /app/target/demo3 ./demo3
+COPY --from=build-aot --chown=spring:spring /app/target/demo ./app
 
 USER spring
 EXPOSE 8080
-ENTRYPOINT ["./demo3"]
+ENTRYPOINT ["./app"]
