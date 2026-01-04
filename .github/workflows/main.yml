@@ -38,36 +38,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ahmadzulfadli/application-private:demo3-service-latest, ahmadzulfadli/application-private:demo3-service-${{ github.ref_name }}
-
-      # Step 6: Clean up old images on Docker Hub
-      - name: Clean up old images (demo3-service only)
-        run: |
-          REPO="ahmadzulfadli/application-private"
-          SERVICE="demo-service"
-          LIMIT=5
-
-          TOKEN=$(curl -s -H "Content-Type: application/json" \
-            -X POST -d '{"username": "${{ secrets.DOCKER_USERNAME }}", "password": "${{ secrets.DOCKER_PASSWORD }}"}' \
-            https://hub.docker.com/v2/users/login/ | jq -r .token)
-
-          # Ambil list tags hanya untuk service ini, kecuali 'latest'
-          TAGS=$(curl -s -H "Authorization: JWT $TOKEN" \
-            "https://hub.docker.com/v2/repositories/$REPO/tags/?page_size=100" \
-            | jq -r '.results | .[]?.name' \
-            | grep "^${SERVICE}" \
-            | grep -v "latest" || true)
-
-          COUNT=$(echo "$TAGS" | wc -l)
-          echo "Total $SERVICE images: $COUNT"
-
-          if [ $COUNT -gt $LIMIT ]; then
-            DELETE_TAGS=$(echo "$TAGS" | sort | head -n $(($COUNT-$LIMIT)))
-            for TAG in $DELETE_TAGS; do
-              echo "Deleting $TAG ..."
-              curl -s -X DELETE -H "Authorization: JWT $TOKEN" \
-                "https://hub.docker.com/v2/repositories/$REPO/tags/$TAG/"
-            done
-          else
-            echo "Tidak ada image yang perlu dihapus."
-          fi
+          tags: ahmadzulfadli/application-public:demo3-latest
