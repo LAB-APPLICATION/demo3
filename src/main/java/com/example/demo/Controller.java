@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/demo/")
 public class Controller {
-    @GetMapping("get-demo3")
+    @GetMapping("get-demo-3")
     public ResponseEntity<DemoModel> getTest() {
         DemoModel demoModel = new DemoModel();
         demoModel.setMessage("Hallo, from demo3");
