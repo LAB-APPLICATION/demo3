@@ -1,0 +1,5 @@
+remotes:
+  - git_url: https://github.com/ahmadzulfadli/lefthook-configuration.git
+    ref: master
+    configs:
+      - lefthook-remote.yml
