@@ -1,5 +1,5 @@
 remotes:
-  - git_url: https://github.com/ahmadzulfadli/lefthook-configuration.git
+  - git_url: git@gitrepo.xlaxiata.id:anthos/tools/lefthook-config.git
     ref: master
     configs:
       - lefthook-remote.yml
